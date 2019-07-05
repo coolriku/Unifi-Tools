@@ -3,7 +3,7 @@ This tools helps removing an Super Administrator from all sites.
 Currently in the Unifi controller, it is not possible to delete a super admin from all sites with ease.
 It requires lots of manual work, demote the super admin to admin, remove that admin from all sites one at a time.
 
-![Example main screen](https://github.com/coolriku/Unifi-Tools/Super-admin-remover/images/sar1.png)
+![Example main screen](https://github.com/coolriku/Unifi-Tools/raw/master/Super-admin-Remover/images/sar_1.png)
 
 ## Requirements
 
