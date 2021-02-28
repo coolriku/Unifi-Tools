@@ -146,14 +146,22 @@ function load_admins {
     $alladmins_request = Invoke-restmethod -Uri "$baseurl/api/stat/admin" -WebSession $myWebSession -ContentType "application/json; charset=utf-8"
     $script:alladmins = $alladmins_request.data  | where {$_.is_super -eq 'True'}
     $ComboBox_super_admins.Items.Clear()
-    $ComboBox_super_admins.Items.AddRange($alladmins.name)
+    foreach ($admin in $alladmins){
+        if ($admin.email){
+            $ComboBox_super_admins.Items.Add($admin.email)
+        }
+        else {
+            $ComboBox_super_admins.Items.Add($admin.name)
+        }
+    }
+    #$ComboBox_super_admins.Items.AddRange($alladmins.name)
     $ComboBox_super_admins.SelectedIndex = 0
     $Button_remove_superadmin.enabled  = $true
  }
 
 function remove_sadmin {
     $selectedadmin = $ComboBox_super_admins.SelectedItem
-    $selectedadmin = $script:alladmins | Where-Object {$_.name -eq $selectedadmin}
+    $selectedadmin = $script:alladmins | Where-Object {($_.name -eq $selectedadmin) -or ($_.email -eq $selectedadmin)}
     $selectedadminid = $selectedadmin._id
     $allsites_request = Invoke-restmethod -Uri "$baseurl/api/self/sites" -WebSession $myWebSession -ContentType "application/json; charset=utf-8"
     $allsites = $allsites_request.data
