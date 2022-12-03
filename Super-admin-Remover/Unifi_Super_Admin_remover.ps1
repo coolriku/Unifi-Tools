@@ -123,7 +123,7 @@ function login {
         $CheckBox_ignoressl.Enabled = $false
     }
     try {
-        $request = Invoke-webrequest -Uri "$script:baseurl/api/login" -method post -body ($script:credential|ConvertTo-Json) -ContentType "application/json; charset=utf-8" -SessionVariable script:myWebSession
+        $request = Invoke-webrequest -Uri "$script:baseurl/api/login" -UseBasicParsing -method post -body ($script:credential|ConvertTo-Json) -ContentType "application/json; charset=utf-8" -SessionVariable script:myWebSession
         if($request.StatusCode -eq 200) {
                 $self_request = Invoke-restmethod -Uri "$baseurl/api/self" -WebSession $myWebSession -ContentType "application/json; charset=utf-8"
                 $self = $self_request.data | where {$_.is_super -eq 'True'}
